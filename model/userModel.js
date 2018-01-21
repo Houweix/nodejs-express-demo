@@ -1,17 +1,11 @@
+//注意路径前加./
+let db = require('./db');
 
-exports.reg = function (connection,res,data) {
+
+exports.reg = function (data,callback) {
+
     //模版字符串
     let sql = `insert into t_user(username,password) values('${data.name}','${data.pwd}')`;
-    connection.query(sql, function (error, results) {
-        if (error) throw error;
-        connection.end();        //关闭连接
-
-        if(results.affectedRows > 0){
-            return 'ok';
-        }else{
-            return 'error';
-        }
-
-        // return results;
-    });
+    //将公共的操作封装模块，每次只需传入sql语句和callback函数
+    db.query(sql,callback);
 };
