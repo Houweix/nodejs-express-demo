@@ -2,7 +2,7 @@ let userModel = require('../model/userModel');
 
 
 exports.login_in = function(req, res){
-    res.render('form');
+    res.render('login');
 };
 
 exports.reg_in = function (req, res) {
@@ -47,4 +47,25 @@ exports.reg_get = function (req,res) {
     }else{
         res.end('pwd-error');
     }
+};
+
+exports.checkLogin = function (req, res) {
+    let name = req.body.uname;
+    let pwd = req.body.pwd;
+
+    userModel.getUserByNameAndPwd(name,pwd,function (results) {
+        if(results.length > 0){
+            //将查到的值存入session中，注意session是存在req中
+            req.session.loginUser = results[0];
+            res.render('index',{
+                name:name
+            });
+
+        }else{
+            //错误重新登录
+            res.render('/login');
+            res.redirect('/login');
+
+        }
+    })
 };

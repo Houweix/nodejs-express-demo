@@ -9,3 +9,9 @@ exports.reg = function (data,callback) {
     //将公共的操作封装模块，每次只需传入sql语句和callback函数
     db.query(sql,callback);
 };
+
+
+exports.getUserByNameAndPwd = function (name,pwd,callback) {
+    let sql = `select * from t_user where email='${name}' and password = '${pwd}')`;
+    db.query(sql,callback)
+};

@@ -21,6 +21,8 @@ router.post('/login', user.login_post);
 //注册get请求
 router.get('/regist',user.reg_get);
 
+//登录请求
+router.post('/login', user.checkLogin);
 
 
 module.exports = router;
